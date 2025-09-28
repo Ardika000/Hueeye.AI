@@ -1,0 +1,402 @@
+/* Scan Page Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Unbounded', sans-serif;
+    background-color: #7BAC83;
+}
+
+/* Navigation */
+.scan-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #7BAC83;
+}
+
+.back-button img {
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+    margin-right: 33px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 18px;
+    font-family: 'Russo One', sans-serif;
+}
+
+/* Scanner Container */
+.scanner-container {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 140px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.viewfinder {
+    width: 80%;
+    max-width: 800px;
+    aspect-ratio: 16/9;
+    background-color: #3d3d3d;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.viewfinder-frame {
+    position: absolute;
+    inset: 0;
+    border: 2px solid white;
+    margin: 20px;
+}
+
+/* Corner Markers */
+.corner-marker {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid white;
+}
+
+.top-left {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+}
+
+.top-right {
+    top: 0;
+    right: 0;
+    border-left: none;
+    border-bottom: none;
+}
+
+.bottom-left {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+}
+
+.bottom-right {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+}
+
+/* Center Crosshair */
+.center-crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+}
+
+.center-crosshair::before,
+.center-crosshair::after {
+    content: '';
+    position: absolute;
+    background-color: white;
+}
+
+.center-crosshair::before {
+    width: 2px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.center-crosshair::after {
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Color Indicator */
+.color-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff8833;
+    color: white;
+    padding: 10px 40px;
+    border-radius: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Character */
+.scan-character {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+}
+
+
+/* Slider Styles */
+.slider {
+    position: relative;
+    width: 100%;
+    height: 130px;
+    background-image: 
+        url('../ASSET/button/button/cam/recHijauCam.png'),
+        url('../ASSET/button/button/cam/RecBeigeCam.png');
+    background-size: 340px 110px, 450px 130px;    /* First value for RecBeigeCam, second for recHijauCam */
+    background-position: center center, center center;  /* Center both images */
+    background-repeat: no-repeat, no-repeat;   /* Prevent repeating */
+    /* overflow: hidden; */
+}
+
+.slider-container {
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    z-index: 100; /* Ensure slider appears above viewfinder */
+}
+
+.slider-track {
+    width: 350px;
+    height: 130px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 auto;           /* Center horizontally */
+    display: flex;            /* Enable flexbox */
+    align-items: center;      /* Center vertically */
+    justify-content: center;  /* Center horizontally */
+    z-index: 101; /* Ensure track appears above other elements */
+}
+
+.slider-track.active::before {
+    transform: translateX(0%);
+}
+
+.slider-handle {
+    position: absolute;
+    left:0px;
+    width: 178px;    /* increase size to show image better */
+    height: 178px;   /* increase size to show image better */
+    background-image: url('../ASSET/button/button/cam/EmotCam.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform-origin: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 1;
+    z-index: 102; /* Ensure handle appears at the very top */
+}
+
+.slider-handle::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../ASSET/button/button/homepage/emotHomepage.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    /* transition: opacity 0.4s ease; */
+}
+
+/* When sliding */
+.slider-track.active .slider-handle::after {
+    opacity: 1;
+    background-image: url('../ASSET/button/button/homepage/emotHomepage.png');
+
+}
+
+.slider-track.active .slider-handle {
+    left: 110px;
+    width: 178px;
+    height: 178px;
+    background-image: url('../ASSET/button/button/homepage/emotHomepage.png');
+    
+}
+
+/* Footer */
+.scan-footer {
+    background-color: #7BAC83;
+    display: flex;
+    color: white;
+    justify-content:start;
+    
+}
+
+.footer-logo {
+    height: 100px;
+    width: 150px;
+    margin-left: 40px;
+    margin-bottom: 20px;
+
+}
+
+.copyright {
+    font-size: 10px;
+    margin-top: 100px;
+    margin-left: 280px;
+    font-family: 'Russo One', sans-serif;
+}
+
+#camera-feed {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 24px;
+    position: relative;
+    z-index: 1000;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #FFFFFF;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Update Mobile Navigation Styles */
+@media screen and (max-width: 768px) {
+    .scan-nav {
+        padding: 15px;
+    }
+
+    .nav-links {
+        gap: 20px;
+        margin-right: 15px;
+    }
+
+    .nav-links a {
+        font-size: 16px;
+    }
+
+    .viewfinder {
+        top: 5%;
+        height: 400px;
+        width: 95%;
+        border-radius: 15px;
+    }
+
+    .slider-container {
+        width: 300px;
+        top: 15%;
+    }
+
+    .slider {
+        background-size: 240px 80px, 300px 100px;
+    }
+
+    .slider-track {
+        top: 15px;
+        width: 280px;
+        height: 100px;
+    }
+
+    .slider-handle {
+        width: 178px;
+        height: 178px;
+    }
+
+    .color-indicator {
+        padding: 8px 30px;
+        font-size: 14px;
+    }
+
+    .scan-footer {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .footer-logo {
+        margin: 0 0 15px 0;
+    }
+
+    .copyright {
+        margin: 0;
+        text-align: center;
+    }
+
+    .hamburger {
+        display: block;
+        position: fixed;  /* Keep this fixed */
+        right: 20px;
+        top: 20px;
+        z-index: 1001;   /* Increased z-index to stay above everything */
+    }
+
+    .nav-links {
+        position: fixed;  /* Keep this fixed too */
+        top: 0;
+        right: -100%;
+        width: 45%;
+        height: 100vh;
+        background-color: #7BAC83;
+        padding: 80px 20px;
+        flex-direction: column;
+        transition: right 0.3s ease;
+        z-index: 1000;   /* Just below hamburger */
+        margin: 0;
+        overflow-y: auto; /* Add scroll if needed */
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 16px;
+        margin: 20px 0;
+    }
+
+    /* Hamburger Animation */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(8px, -8px);
+    }
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/scan.css') }}">
+        <title>Scan - HueEye.AI</title>
+        <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Unbounded:wght@200..900&family=Inika:wght@400;700&display=swap" rel="stylesheet">
+        <script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/scan.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+    </head>
+    <body>
+
+        <!-- Navigation -->
+    <!-- <nav class="scan-nav">
+        <a href="index.html" class="back-button">
+            <img src="../static/ASSET/ASSET/icon-park-solid_back.png" alt="Back">
+        </a>
+        
+        <button class="hamburger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-links">
+            <a href="index.html">About</a>
+            <a href="scan.html">Scan!</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav> -->
+    <nav class="scan-nav">
+        <a href="{{ url_for('index') }}" class="back-button">
+            <img src="{{ url_for('static', filename='ASSET/ASSET/icon-park-solid_back.png') }}" alt="Back">
+        </a>
+        
+        <button class="hamburger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-links">
+            <a href="{{ url_for('index') }}">About</a>
+            <a href="{{ url_for('scan') }}">Scan!</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Scanner Container -->
+    <div class="scanner-container">
+        <!-- Character -->
+         <div class="slide">
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="slider-track" data-page="scan.html">
+                        <div class="slider-handle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Viewfinder -->
+        <div class="viewfinder">
+            <img id="camera-feed" src="{{ url_for('video_feed') }}">
+            <div class="viewfinder-frame">
+                <!-- Corner markers -->
+                <div class="corner-marker top-left"></div>
+                <div class="corner-marker top-right"></div>
+                <div class="corner-marker bottom-left"></div>
+                <div class="corner-marker bottom-right"></div>
+                <!-- Center crosshair -->
+                <div class="center-crosshair"></div>
+            </div>
+            <!-- Color indicator -->
+            <div class="color-indicator" id="color-display">MEMUAT...</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="scan-footer">
+        <img src="{{ url_for('static', filename='ASSET/ASSET/Group 9.png') }}" alt="HueEye.AI Logo" class="footer-logo">
+        <p class="copyright">© 2024 HueEye.AI - All rights reserved</p>
+    </footer>
+</body>
+</html>
