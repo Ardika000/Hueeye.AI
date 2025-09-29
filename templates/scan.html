@@ -6,9 +6,6 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/scan.css') }}">
         <title>Scan - HueEye.AI</title>
         <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Unbounded:wght@200..900&family=Inika:wght@400;700&display=swap" rel="stylesheet">
-        <script src="{{ url_for('static', filename='js/camera.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/scan.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
     </head>
     <body>
 
@@ -44,7 +41,7 @@
         <div class="nav-links">
             <a href="{{ url_for('index') }}">About</a>
             <a href="{{ url_for('scan') }}">Scan!</a>
-            <a href="#contact">Contact</a>
+            <a href="{{ url_for('index') }}#contact">Contact</a>
         </div>
     </nav>
 
@@ -63,19 +60,19 @@
 
         <!-- Viewfinder -->
         <div class="viewfinder">
-            <img id="camera-feed" src="{{ url_for('video_feed') }}">
-            <div class="viewfinder-frame">
-                <!-- Corner markers -->
-                <div class="corner-marker top-left"></div>
-                <div class="corner-marker top-right"></div>
-                <div class="corner-marker bottom-left"></div>
-                <div class="corner-marker bottom-right"></div>
-                <!-- Center crosshair -->
-                <div class="center-crosshair"></div>
-            </div>
-            <!-- Color indicator -->
-            <div class="color-indicator" id="color-display">MEMUAT...</div>
-        </div>
+    <video id="camera" autoplay playsinline></video>
+    <canvas id="canvas" style="display:none;"></canvas>  <!-- WAJIB ADA -->
+    <div class="viewfinder-frame">
+        <div class="corner-marker top-left"></div>
+        <div class="corner-marker top-right"></div>
+        <div class="corner-marker bottom-left"></div>
+        <div class="corner-marker bottom-right"></div>
+        <div class="center-crosshair"></div>
+    </div>
+    <div class="color-indicator" id="color-display">MEMUAT...</div>
+</div>
+    </div>
+
     </div>
 
     <!-- Footer -->
@@ -83,5 +80,9 @@
         <img src="{{ url_for('static', filename='ASSET/ASSET/Group 9.png') }}" alt="HueEye.AI Logo" class="footer-logo">
         <p class="copyright">© 2024 HueEye.AI - All rights reserved</p>
     </footer>
+    
+    <script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scan.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
 </body>
 </html>

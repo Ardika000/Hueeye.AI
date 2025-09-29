@@ -48,43 +48,52 @@
 
 
 
-// Variabel untuk kontrol update
-let lastUpdateTime = 0;
-const updateInterval = 300; // Update setiap 500ms
+const video = document.getElementById('camera');
+const canvas = document.getElementById('canvas');
+const colorDisplay = document.getElementById('color-display');
 
-// Fungsi untuk mendapatkan warna saat ini
-async function getCurrentColor() {
-    try {
-        const response = await fetch('/get_color');
-        const data = await response.json();
-        document.querySelector('.color-indicator').textContent = data.color;
-    } catch (error) {
-        console.error('Error getting color:', error);
-    }
+if (!canvas) {
+  console.error("Canvas element tidak ditemukan di DOM!");
 }
 
-// Fungsi untuk update color dengan throttling
-function updateColorWithThrottle() {
-    const currentTime = Date.now();
-    if (currentTime - lastUpdateTime >= updateInterval) {
-        getCurrentColor();
-        lastUpdateTime = currentTime;
-    }
+const ctx = canvas ? canvas.getContext('2d') : null;
+
+// Aktifkan kamera browser
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(stream => {
+    video.srcObject = stream;
+  })
+  .catch(err => {
+    console.error("Error accessing camera:", err);
+    colorDisplay.textContent = "KAMERA TIDAK TERSEDIA";
+  });
+
+// Kirim snapshot ke server
+async function sendFrame() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  if (!ctx) return;
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  
+  const dataURL = canvas.toDataURL('image/jpeg');
+  
+  try {
+    const res = await fetch('/predict', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: dataURL })
+    });
+    
+    const result = await res.json();
+    colorDisplay.textContent = result.color || "ERROR";
+  } catch (err) {
+    console.error("Error:", err);
+  }
 }
 
-// Gunakan Intersection Observer untuk hanya update ketika tab visible
-let isTabVisible = true;
+// Loop prediksi tiap 500ms
+setInterval(sendFrame, 500);
 
-document.addEventListener('visibilitychange', () => {
-    isTabVisible = !document.hidden;
-});
-
-// Update color secara periodic, tetapi hanya jika tab visible
-setInterval(() => {
-    if (isTabVisible) {
-        updateColorWithThrottle();
-    }
-}, 100);
 
 
 
