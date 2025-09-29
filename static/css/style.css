@@ -11,6 +11,12 @@ body {
     color: #333;
 }
 
+/* Root level fix */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 /* Header */
 .header {
     z-index: 1000;
@@ -64,6 +70,8 @@ body {
     flex-direction: column;
     align-items: center;
     max-width: 1200px;
+    padding-top: 50px; /* Sesuaikan dengan height header */
+    min-height: calc(100vh - 50px);
 }
 
 /* Hero Section */
@@ -390,7 +398,7 @@ body {
     width: 30px;
     height: 24px;
     position: relative;
-    z-index: 1000;
+    z-index: 9999;
     right: 20px;  /* Position from right edge */
     top: 20px;    /* Position from top edge */
 }
@@ -412,20 +420,22 @@ body {
         position: fixed;     /* Keep menu fixed while scrolling */
         right: 20px;        /* Distance from right edge */
         top: 20px;         /* Distance from top edge */
-        z-index: 1000;
+        z-index: 9999;
     }
 
     .nav {
         position: fixed;
         top: 0;
-        right: -100%;
+        right: -100%; /* Hide off-screen */
         width: 45%;
         height: 100vh;
         background-color: #FFFFF4;
-        padding: 80px 20px;
+        padding: 60px 20px; /* Kurangi padding atas */
         flex-direction: column;
         transition: right 0.3s ease;
-        z-index: 999;
+        z-index: 1000;
+        margin: 0;
+        overflow-y: auto;
     }
 
     .nav.active {
@@ -439,7 +449,7 @@ body {
 
     /* Hamburger animation */
     .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(7px, 7px);
+        transform: rotate(45deg) translate(8px, 8px);
     }
 
     .hamburger.active span:nth-child(2) {
@@ -447,7 +457,7 @@ body {
     }
 
     .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -7px);
+        transform: rotate(-45deg) translate(8px, -8px);
     }
 
     .slider-container {
