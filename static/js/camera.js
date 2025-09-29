@@ -58,15 +58,29 @@ if (!canvas) {
 
 const ctx = canvas ? canvas.getContext('2d') : null;
 
-// Aktifkan kamera browser
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then(stream => {
+// Fungsi untuk mengaktifkan kamera
+async function startCamera() {
+  try {
+    // Coba pakai kamera belakang (environment)
+    const stream = await navigator.mediaDevices.getUserMedia({ 
+      video: { facingMode: { exact: "environment" } } 
+    });
     video.srcObject = stream;
-  })
-  .catch(err => {
-    console.error("Error accessing camera:", err);
-    colorDisplay.textContent = "KAMERA TIDAK TERSEDIA";
-  });
+  } catch (err) {
+    console.warn("Kamera belakang tidak tersedia, pakai kamera default:", err);
+    try {
+      // Fallback pakai kamera default
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      video.srcObject = stream;
+    } catch (err2) {
+      console.error("Error accessing camera:", err2);
+      colorDisplay.textContent = "KAMERA TIDAK TERSEDIA";
+    }
+  }
+}
+
+// Mulai kamera
+startCamera();
 
 // Kirim snapshot ke server
 async function sendFrame() {
@@ -74,16 +88,16 @@ async function sendFrame() {
   canvas.height = video.videoHeight;
   if (!ctx) return;
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  
+
   const dataURL = canvas.toDataURL('image/jpeg');
-  
+
   try {
     const res = await fetch('/predict', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ image: dataURL })
     });
-    
+
     const result = await res.json();
     colorDisplay.textContent = result.color || "ERROR";
   } catch (err) {
@@ -93,7 +107,6 @@ async function sendFrame() {
 
 // Loop prediksi tiap 500ms
 setInterval(sendFrame, 500);
-
 
 
 
