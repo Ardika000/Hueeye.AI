@@ -357,10 +357,11 @@ body {
 
     .hamburger {
         display: block;
-        position: fixed;  /* Keep this fixed */
-        right: 20px;
-        top: 20px;
-        z-index: 1001;   /* Increased z-index to stay above everything */
+        margin-left: 300px;
+        position: fixed;     /* Keep menu fixed while scrolling */
+        right: 20px;        /* Distance from right edge */
+        top: 20px;         /* Distance from top edge */
+        z-index: 9999;
     }
 
     .nav-links {
